@@ -1,0 +1,1 @@
+# Moduły funkcjonalności aplikacji PLLA

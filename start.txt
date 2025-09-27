@@ -1,0 +1,2 @@
+conda activate language_helper
+streamlit run app2.py
