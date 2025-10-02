@@ -2,16 +2,42 @@
 Moduł Dialog - prawdziwe rozmowy z AI z ciągłą historią
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech_openai, add_token_usage
+from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage
 
 
 def show_dialog(language_in, language_out):
     """Wyświetla interfejs dialogu z AI z prawdziwą historią konwersacji"""
-    st.header("💬 Rozmowa z AI")
+    st.header("Rozmowa z AI")
 
     # AI odpowiada w language_out (język docelowy nauki)
     # Użytkownik może pisać w language_in lub language_out
     
+    # Informacje o używaniu
+    with st.expander("ℹ️ Instrukcja jak używać modułu Dialog"):
+        st.markdown(f"""
+        **Ten moduł to prawdziwy czat z AI w języku - {language_in}:**
+        
+        **🎭 Scenariusze rozmowy:**
+        - **"Swobodna rozmowa"** - naturalny dialog na dowolne tematy
+        - **"Jak powiedzieć"** ⭐ - zadawaj pytania typu "Jak powiedzieć X?" i otrzymuj odpowiedzi z przykładami użycia
+        - **Sytuacyjne** - restauracja, lotnisko, sklep, praca, lekarz, droga, hotel
+        
+        **🔧 Funkcje:**
+        - 🗣️ **Nagrywaj lub pisz** - używaj mikrofonu lub klawiatury
+        - 💬 **Ciągła rozmowa** - AI pamięta całą konwersację  
+        - 🔊 **Odtwarzanie** - kliknij 🔊 przy każdej odpowiedzi AI (w języku {language_in})
+        - 🌍 **Tłumaczenie** - kliknij 🌍 aby przetłumaczyć odpowiedź na język {language_out}
+        - 🔄 **Reset** - użyj "Nowa rozmowa" aby zacząć od nowa
+        
+        **💡 Przykłady dla scenariusza "Jak powiedzieć":**
+        - "Jak powiedzieć 'miło Cię poznać'?"
+        - "Jak zapytać o godzinę?"
+        - "Jak się przedstawić w pracy?"
+        - "Jak poprosić o rachunek w restauracji?"
+        
+        **🌍 Języki:** AI rozmawia w języku {language_in}, możesz mieszać języki - AI zrozumie
+        """)
+
     col1, col2 = st.columns([3, 1])
     with col1:
         scenario = st.selectbox(
@@ -68,13 +94,13 @@ def show_dialog(language_in, language_out):
                         # Wyświetl tłumaczenie jeśli istnieje
                         translation_key = f"translation_{i}"
                         if translation_key in st.session_state:
-                            st.markdown(f"*🌍 Tłumaczenie ({language_out}):* {st.session_state[translation_key]}")
+                            st.markdown(f"*🌍 Tłumaczenie na {language_out}:* {st.session_state[translation_key]}")
                     
                     with col2:
                         # Przyciski odtwarzania i tłumaczenia
                         if st.button("🔊", key=f"tts_{i}", help="Odtwórz tę odpowiedź"):
                             try:
-                                audio_bytes = text_to_speech_openai(message['content'], language_in)
+                                audio_bytes = text_to_speech(message['content'], language_in)
                                 st.audio(audio_bytes, format="audio/mp3")
                             except Exception as e:
                                 st.error(f"Błąd TTS: {e}")
@@ -108,10 +134,10 @@ def show_dialog(language_in, language_out):
                             except Exception as e:
                                 st.error(f"Błąd tłumaczenia: {e}")
 
-    st.divider()
+    #st.divider()
 
     # Sekcja wprowadzania nowej wiadomości
-    st.subheader("✍️ Napisz wiadomość:")
+    # st.subheader("✍️ Napisz wiadomość:")
     
     # Interfejs nagrywania
     recognized_text = show_recording_interface(language_in, "dialog_")
@@ -194,34 +220,10 @@ ZASADY:
     elif send_message and (not user_message or not user_message.strip()):
         st.warning("Proszę napisać wiadomość przed wysłaniem.")
 
-    # Informacje o używaniu
-    with st.expander("💡 Jak używać modułu Dialog"):
-        st.markdown(f"""
-        **Ten moduł to prawdziwy czat z AI w języku - {language_in}:**
-        
-        **🎭 Scenariusze rozmowy:**
-        - **"Swobodna rozmowa"** - naturalny dialog na dowolne tematy
-        - **"Jak powiedzieć"** ⭐ - zadawaj pytania typu "Jak powiedzieć X?" i otrzymuj odpowiedzi z przykładami użycia
-        - **Sytuacyjne** - restauracja, lotnisko, sklep, praca, lekarz, droga, hotel
-        
-        **🔧 Funkcje:**
-        - 🗣️ **Nagrywaj lub pisz** - używaj mikrofonu lub klawiatury
-        - 💬 **Ciągła rozmowa** - AI pamięta całą konwersację  
-        - 🔊 **Odtwarzanie** - kliknij 🔊 przy każdej odpowiedzi AI (w języku {language_in})
-        - 🌍 **Tłumaczenie** - kliknij 🌍 aby przetłumaczyć odpowiedź na język {language_out}
-        - 🔄 **Reset** - użyj "Nowa rozmowa" aby zacząć od nowa
-        
-        **💡 Przykłady dla scenariusza "Jak powiedzieć":**
-        - "Jak powiedzieć 'miło Cię poznać'?"
-        - "Jak zapytać o godzinę?"
-        - "Jak się przedstawić w pracy?"
-        - "Jak poprosić o rachunek w restauracji?"
-        
-        **🌍 Języki:** AI rozmawia w języku {language_in}, możesz mieszać języki - AI zrozumie
-        """)
+
         
     # Statystyki rozmowy
     if st.session_state.dialog_messages:
         user_messages = len([m for m in st.session_state.dialog_messages if m["role"] == "user"])
         ai_messages = len([m for m in st.session_state.dialog_messages if m["role"] == "assistant"])
-        st.caption(f"📊 Wymiana: {user_messages} twoich wiadomości, {ai_messages} odpowiedzi AI")
+        st.caption(f"📊 Długość dialogu: {user_messages} twoich wiadomości, {ai_messages} odpowiedzi AI")

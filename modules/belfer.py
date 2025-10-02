@@ -3,19 +3,52 @@ Moduł Belfer - urzytkownik wpisuje zdanie lub wyraz w wybranym języku in a ope
 Dla sprawdzenia wyświetla tłumaczenie w wybranym języku out
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech_openai, add_token_usage
+from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage
 
 
 def show_belfer(language_in, language_out):
     """Wyświetla interfejs sprawdzania gramatyki i pisowni"""
     st.header("Sprawdzanie budowy zdań z poprawkami i tłumaczeniem")
 
+    # Instrukcja obsługi w expanderze
+    with st.expander("ℹ️ Instrukcja obsługi modułu Belfer"):
+        st.markdown("""
+        ### 👨‍🏫 Jak korzystać z modułu Belfer:
+        
+        **🎯 Co robi moduł:**
+        - Sprawdza poprawność gramatyczną i składniową Twoich tekstów
+        - Analizuje pisownię i budowę zdań
+        - Proponuje poprawki z wyjaśnieniami
+        - Tłumaczy tekst na język docelowy
+        - Czyta wyjaśnienia na głos
+        
+        **📝 Sposób użycia:**
+        1. **Wpisz tekst** w polu tekstowym w języku źródłowym
+        2. **LUB nagraj** swoją wypowiedź używając przycisku nagrywania
+        3. **Kliknij "Zweryfikuj"** - AI przeanalizuje Twój tekst
+        4. **Przeczytaj analizę** - zobaczysz błędy, poprawki i wyjaśnienia
+        5. **Posłuchaj wyjaśnienia** - kliknij 🔊 aby odsłuchać analizę
+        
+        **💡 Wskazówki:**
+        - Możesz wpisywać pojedyncze słowa, zdania lub całe akapity
+        - System wykrywa czy używasz właściwego języka
+        - Otrzymujesz szczegółowe wyjaśnienia błędów gramatycznych
+        - Tłumaczenie pomoże Ci zrozumieć znaczenie tekstu
+        - Funkcja głosowa pomoże w nauce wymowy wyjaśnień
+        
+        **🎓 Idealne do:**
+        - Sprawdzania pisemnych prac
+        - Nauki poprawnej gramatyki
+        - Weryfikacji wymowy (nagrywanie)
+        - Zrozumienia zasad językowych
+        """)
+
     # Używamy globalnych ustawień języków z sidebar
     # Interfejs nagrywania - używamy wspólnej funkcji
     recognized_text = show_recording_interface(language_in, "belfer_")
     
     # Pole tekstowe do wpisania wiadomości
-    verified_text = st.text_area("Wpisz tekst do weryfikacji w obsługiwanym języku lub nagraj:", 
+    verified_text = st.text_area(f"Wpisz tekst do weryfikacji lub nagraj w języku - {language_in}", 
                                 value=recognized_text)
     
     if st.button("Zweryfikuj"):
@@ -51,13 +84,13 @@ def show_belfer(language_in, language_out):
             except Exception as e:
                 st.error(f"Wystąpił błąd podczas tłumaczenia: {e}")
     
-    # # Przycisk odtwarzania wyjaśnienia
-    # if st.button("Odtwórz wyjaśnienie"):
-    #     if st.session_state.get("belfer_last_verification"):
-    #         try:
-    #             audio_bytes = text_to_speech_openai(st.session_state["belfer_last_verification"], language_out)
-    #             st.audio(audio_bytes, format="audio/mp3")
-    #         except Exception as e:
-    #             st.error(f"Błąd podczas generowania mowy: {e}")
-    #     else:
-    #         st.warning("Brak wyjaśnienia do odtworzenia. Najpierw zweryfikuj tekst.")
+    # Przycisk odtwarzania wyjaśnienia
+    if st.button("🔊 Odtwórz wyjaśnienie"):
+        if st.session_state.get("belfer_last_verification"):
+            try:
+                audio_bytes = text_to_speech(st.session_state["belfer_last_verification"], language_out)
+                st.audio(audio_bytes, format="audio/mp3")
+            except Exception as e:
+                st.error(f"Błąd podczas generowania mowy: {e}")
+        else:
+            st.warning("Brak wyjaśnienia do odtworzenia. Najpierw zweryfikuj tekst.")

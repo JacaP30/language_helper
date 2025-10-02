@@ -1,0 +1,277 @@
+{
+  "created_date": "2025-09-29T00:57:25.457569",
+  "last_updated": "2025-10-01T16:34:20.548543",
+  "words": {
+    "angielski_polski": [
+      {
+        "translation": "być",
+        "alternatives": [
+          "stać się",
+          "znajdować się"
+        ],
+        "examples": [
+          {
+            "original": "I want to be happy.",
+            "translated": "Chcę być szczęśliwy."
+          },
+          {
+            "original": "They will be here soon.",
+            "translated": "Oni będą tutaj wkrótce."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "czasownik",
+        "pronunciation_tip": "wymowa: /biː/",
+        "original": "be",
+        "id": 1,
+        "added_date": "2025-09-29T00:57:25.457580",
+        "review_count": 1,
+        "correct_count": 1,
+        "last_reviewed": "2025-10-01T11:36:34.601238",
+        "next_review": "2025-10-03T11:36:34.601251",
+        "mastery_level": 1
+      },
+      {
+        "translation": "mieć",
+        "alternatives": [
+          "posiadać",
+          "otrzymać"
+        ],
+        "examples": [
+          {
+            "original": "I have a car.",
+            "translated": "Mam samochód."
+          },
+          {
+            "original": "Do you have any questions?",
+            "translated": "Czy masz jakieś pytania?"
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "czasownik",
+        "pronunciation_tip": "wymowa: /hæv/",
+        "original": "have",
+        "id": 2,
+        "added_date": "2025-10-01T15:45:56.287563",
+        "review_count": 0,
+        "correct_count": 0,
+        "last_reviewed": null,
+        "next_review": "2025-10-01T15:45:56.287569",
+        "mastery_level": 0
+      },
+      {
+        "translation": "osoba",
+        "alternatives": [
+          "człowiek",
+          "postać"
+        ],
+        "examples": [
+          {
+            "original": "She is a kind person.",
+            "translated": "Ona jest miłą osobą."
+          },
+          {
+            "original": "Every person has their own story.",
+            "translated": "Każda osoba ma swoją historię."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "rzeczownik",
+        "pronunciation_tip": "Wymowa: /ˈpɜːrsən/",
+        "original": "person",
+        "id": 3,
+        "added_date": "2025-10-01T15:46:37.418575",
+        "review_count": 0,
+        "correct_count": 0,
+        "last_reviewed": null,
+        "next_review": "2025-10-01T15:46:37.418583",
+        "mastery_level": 0
+      }
+    ],
+    "polski_angielski": [],
+    "polski_niemiecki": [],
+    "niemiecki_polski": [],
+    "polski_francuski": [],
+    "francuski_polski": [],
+    "polski_hiszpański": [],
+    "hiszpański_polski": [
+      {
+        "translation": "ręka",
+        "alternatives": [
+          "dłoń",
+          "ręka (w kontekście rękojeści)"
+        ],
+        "examples": [
+          {
+            "original": "Me duele la mano.",
+            "translated": "Boli mnie ręka."
+          },
+          {
+            "original": "Ella levantó la mano.",
+            "translated": "Ona podniosła rękę."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "rzeczownik",
+        "pronunciation_tip": "wymowa: 'mano' z akcentem na pierwszą sylabę",
+        "original": "mano",
+        "id": 1,
+        "added_date": "2025-10-01T15:57:42.483697",
+        "review_count": 0,
+        "correct_count": 0,
+        "last_reviewed": null,
+        "next_review": "2025-10-01T15:57:42.483703",
+        "mastery_level": 0
+      },
+      {
+        "translation": "być",
+        "alternatives": [
+          "znajdować się",
+          "stać"
+        ],
+        "examples": [
+          {
+            "original": "Estoy en casa.",
+            "translated": "Jestem w domu."
+          },
+          {
+            "original": "Ella está feliz.",
+            "translated": "Ona jest szczęśliwa."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "czasownik",
+        "pronunciation_tip": "wymowa: es-tar",
+        "original": "estar",
+        "id": 2,
+        "added_date": "2025-10-01T15:57:59.982276",
+        "review_count": 0,
+        "correct_count": 0,
+        "last_reviewed": null,
+        "next_review": "2025-10-01T15:57:59.982285",
+        "mastery_level": 0
+      },
+      {
+        "translation": "robić",
+        "alternatives": [
+          "czynić",
+          "sprawiać"
+        ],
+        "examples": [
+          {
+            "original": "Tengo que hacer la tarea.",
+            "translated": "Muszę zrobić zadanie."
+          },
+          {
+            "original": "¿Qué vas a hacer hoy?",
+            "translated": "Co zamierzasz zrobić dzisiaj?"
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "czasownik",
+        "pronunciation_tip": "wymowa: a-ser",
+        "original": "hacer",
+        "id": 3,
+        "added_date": "2025-10-01T15:58:03.659321",
+        "review_count": 0,
+        "correct_count": 0,
+        "last_reviewed": null,
+        "next_review": "2025-10-01T15:58:03.659328",
+        "mastery_level": 0
+      }
+    ],
+    "polski_włoski": [],
+    "włoski_polski": [
+      {
+        "translation": "być",
+        "alternatives": [
+          "istnieć",
+          "znajdować się"
+        ],
+        "examples": [
+          {
+            "original": "Io sono felice.",
+            "translated": "Jestem szczęśliwy."
+          },
+          {
+            "original": "Loro sono studenti.",
+            "translated": "Oni są studentami."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "czasownik",
+        "pronunciation_tip": "wymawia się jak 'es-se-re'",
+        "original": "essere",
+        "id": 1,
+        "added_date": "2025-10-01T13:11:15.417133",
+        "review_count": 3,
+        "correct_count": 3,
+        "last_reviewed": "2025-10-01T15:42:49.069623",
+        "next_review": "2025-10-11T15:42:49.069632",
+        "mastery_level": 3
+      },
+      {
+        "translation": "mieć",
+        "alternatives": [
+          "posiadać",
+          "otrzymać"
+        ],
+        "examples": [
+          {
+            "original": "Io ho un libro.",
+            "translated": "Mam książkę."
+          },
+          {
+            "original": "Tu hai una macchina.",
+            "translated": "Ty masz samochód."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "czasownik",
+        "pronunciation_tip": "wymawia się jako 'awere'",
+        "original": "avere",
+        "id": 2,
+        "added_date": "2025-10-01T13:11:19.925864",
+        "review_count": 3,
+        "correct_count": 3,
+        "last_reviewed": "2025-10-01T15:43:23.039205",
+        "next_review": "2025-10-11T15:43:23.039216",
+        "mastery_level": 3
+      },
+      {
+        "translation": "praca",
+        "alternatives": [
+          "zatrudnienie",
+          "roboty"
+        ],
+        "examples": [
+          {
+            "original": "Ho bisogno di lavoro.",
+            "translated": "Potrzebuję pracy."
+          },
+          {
+            "original": "Il lavoro è importante.",
+            "translated": "Praca jest ważna."
+          }
+        ],
+        "difficulty": "basic",
+        "part_of_speech": "rzeczownik",
+        "pronunciation_tip": "wymowa: la-wo-ro",
+        "original": "lavoro",
+        "id": 3,
+        "added_date": "2025-10-01T14:19:16.456007",
+        "review_count": 3,
+        "correct_count": 3,
+        "last_reviewed": "2025-10-01T16:34:20.548520",
+        "next_review": "2025-10-11T16:34:20.548532",
+        "mastery_level": 3
+      }
+    ]
+  },
+  "statistics": {
+    "words_added": 9,
+    "tests_completed": 0,
+    "correct_answers": 0,
+    "total_answers": 0
+  }
+}

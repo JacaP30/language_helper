@@ -2,7 +2,7 @@
 Moduł Translator - tłumaczenie tekstu z rozpoznawaniem mowy
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, text_to_speech_openai, show_recording_interface, add_token_usage
+from utils.config import client, supported_languages, language_code_map, text_to_speech, show_recording_interface, add_token_usage
 
 
 def show_translator(language_in, language_out):
@@ -18,7 +18,7 @@ def show_translator(language_in, language_out):
     
     # Pole tekstowe do wpisania wiadomości
     translate_text = st.text_area(
-        "Wpisz tekst do tłumaczenia w wybranym języku lub nagraj rozmowę:",
+        f"Wpisz tekst do przetłumaczenia lub nagraj w języku - {language_in}",
         value=recognized_text,
         key="translate_text_area"
     )
@@ -37,7 +37,7 @@ def show_translator(language_in, language_out):
         st.subheader(f"Tłumaczenie na {language_out}:")
         st.write(st.session_state["last_translation"])
 
-    if st.button("Przetłumacz na wybrany język"):
+    if st.button(f"Przetłumacz na język - {language_out}"):
         if not st.session_state["translate_text_area"].strip():
             st.warning("Proszę wpisać tekst do przetłumaczenia lub nagrać rozmowę.")
         else:
@@ -61,7 +61,7 @@ def show_translator(language_in, language_out):
                 content = response.choices[0].message.content
                 translation = content.strip() if content is not None else ""
                 st.session_state["last_translation"] = translation  # Zapisz tłumaczenie do session_state
-                st.session_state["last_audio"] = text_to_speech_openai(translation, language_out)
+                st.session_state["last_audio"] = text_to_speech(translation, language_out)
                 
                 # Wyświetl użycie tokenów
                 if response.usage:
@@ -72,10 +72,10 @@ def show_translator(language_in, language_out):
                 st.error(f"Wystąpił błąd podczas tłumaczenia: {e}")
 
     # Odtwarzanie ostatniego tłumaczenia z session_state
-    if st.button("Odtwórz wymowę"):
+    if st.button("🔊 Odtwórz wymowę"):
         if st.session_state.get("last_translation"):
             if st.session_state.get("last_audio") is None:
-                st.session_state["last_audio"] = text_to_speech_openai(st.session_state["last_translation"], language_out)
+                st.session_state["last_audio"] = text_to_speech(st.session_state["last_translation"], language_out)
             st.audio(st.session_state["last_audio"], format="audio/mp3")
         else:
             st.warning("Brak tłumaczenia do odtworzenia. Najpierw przetłumacz tekst.")
