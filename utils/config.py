@@ -71,7 +71,7 @@ except (ImportError, OSError):
     AUDIO_AVAILABLE = False
 
 # Funkcje do persystentnej bazy danych kosztów
-DB_FILE = "BASE/usage_database.json"
+DB_FILE = os.path.join("base", "usage_database.json")
 
 def load_usage_database():
     """Ładuje bazę danych użycia z pliku JSON"""

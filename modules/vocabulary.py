@@ -8,9 +8,10 @@ import random
 from datetime import datetime, timedelta
 from utils.config import client, add_token_usage, text_to_speech, language_code_map
 from ai_handlers import get_ai_handler
+import os
 
 # Plik z bazą słówek
-VOCABULARY_FILE = "BASE/vocabulary_database.json"
+VOCABULARY_FILE = os.path.join("base", "vocabulary_database.json")
 
 # Gotowe zestawy słówek dla różnych języków
 PREDEFINED_WORD_SETS = {
