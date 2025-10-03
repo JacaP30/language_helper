@@ -17,7 +17,7 @@ st.set_page_config(
     layout="wide", #layout="wide" - szeroki, layout="centered" - wyśrodkowany, layout="wide" - szeroki, layout="fullscreen" - pełny ekran
     page_title="PANJO", #tytuł strony
     page_icon="🗣️", #ikona strony - symbolizuje mówienie/języki
-    initial_sidebar_state="collapsed" #stan sidebar - zwinięty
+    #initial_sidebar_state="collapsed" #stan sidebar - zwinięty
 )
 
 # tytuł strony i niebieski pasek po lewej stronie
