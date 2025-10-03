@@ -1,16 +1,16 @@
 {
   "created_date": "2025-09-28T23:19:04.347569",
-  "last_updated": "2025-10-02T18:43:57.665006",
+  "last_updated": "2025-10-03T14:31:32.220595",
   "total_stats": {
     "translator": {
-      "prompt": 433,
-      "completion": 63,
-      "total": 496
+      "prompt": 537,
+      "completion": 86,
+      "total": 623
     },
     "belfer": {
-      "prompt": 0,
-      "completion": 0,
-      "total": 0
+      "prompt": 206,
+      "completion": 124,
+      "total": 330
     },
     "dialog": {
       "prompt": 229,
@@ -18,9 +18,9 @@
       "total": 247
     },
     "tts_chars_openai": 0,
-    "tts_chars_gtts": 317,
-    "whisper_minutes": 0.44404189586639403,
-    "total_cost_usd": 0.005827151375198365,
+    "tts_chars_gtts": 777,
+    "whisper_minutes": 0.8012926419576009,
+    "total_cost_usd": 0.008105355851745606,
     "vocabulary": {
       "prompt": 6072,
       "completion": 3507,
@@ -133,6 +133,35 @@
       "sessions_started": 2,
       "first_activity": "2025-10-02T00:09:53.704702",
       "last_activity": "2025-10-02T15:23:18.565815"
+    },
+    "2025-10-03": {
+      "translator": {
+        "prompt": 104,
+        "completion": 23,
+        "total": 127
+      },
+      "belfer": {
+        "prompt": 206,
+        "completion": 124,
+        "total": 330
+      },
+      "dialog": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "vocabulary": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "tts_chars_openai": 0,
+      "tts_chars_gtts": 460,
+      "whisper_minutes": 0.3572507460912069,
+      "cost_usd": 0.0,
+      "sessions_started": 2,
+      "first_activity": "2025-10-03T13:23:13.643989",
+      "last_activity": "2025-10-03T14:30:36.384836"
     }
   },
   "session_history": []

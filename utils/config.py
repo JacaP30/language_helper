@@ -8,8 +8,24 @@ def load_environment():
     """Ładuje zmienne środowiskowe z pliku .env"""
     env = dotenv_values(".env")
     if not env.get("OPENAI_API_KEY"):
-        st.error("❌ Brak klucza API OpenAI w pliku .env")
-        st.stop()
+        # Sprawdź czy klucz jest już w session_state
+        if "openai_api_key" in st.session_state:
+            env["OPENAI_API_KEY"] = st.session_state.openai_api_key
+        else:
+            st.error("❌ Brak klucza API OpenAI w pliku .env")
+            api_key_input = st.text_input(
+                "Wpisz klucz API OpenAI:",
+                type="password",
+                placeholder="sk-proj-..."
+            )
+            if api_key_input:
+                if api_key_input.startswith("sk-") and len(api_key_input) == 164:
+                    st.session_state.openai_api_key = api_key_input
+                    st.rerun()
+                else:
+                    st.error("❌ Nieprawidłowy klucz API (musi zaczynać się od 'sk-' i być wystarczająco długi)")
+            if not api_key_input:
+                st.stop()
     return env
 
 # Inicjalizacja klienta OpenAI
@@ -39,7 +55,7 @@ import os
 from datetime import datetime
 
 # Funkcje do persystentnej bazy danych kosztów
-DB_FILE = "usage_database.json"
+DB_FILE = "BASE/usage_database.json"
 
 def load_usage_database():
     """Ładuje bazę danych użycia z pliku JSON"""
@@ -565,6 +581,7 @@ def show_token_sidebar():
                     os.remove(DB_FILE)
                 st.session_state.pop("total_tokens_used", None)
                 st.rerun()
+
 
 def text_to_speech_openai(text, language):
     """

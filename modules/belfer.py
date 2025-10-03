@@ -14,6 +14,9 @@ def show_belfer(language_in, language_out):
     with st.expander("ℹ️ Instrukcja obsługi modułu Belfer"):
         st.markdown("""
         ### 👨‍🏫 Jak korzystać z modułu Belfer:
+        **🗣️ Wybierz język:**
+        - **Język źródłowy:** Język, którego się uczysz
+        - **Język docelowy:** Język, wyjaśnień i tłumaczeń (zazwyczaj polski)
         
         **🎯 Co robi moduł:**
         - Sprawdza poprawność gramatyczną i składniową Twoich tekstów
@@ -23,6 +26,7 @@ def show_belfer(language_in, language_out):
         - Czyta wyjaśnienia na głos
         
         **📝 Sposób użycia:**
+                    
         1. **Wpisz tekst** w polu tekstowym w języku źródłowym
         2. **LUB nagraj** swoją wypowiedź używając przycisku nagrywania
         3. **Kliknij "Zweryfikuj"** - AI przeanalizuje Twój tekst

@@ -20,6 +20,56 @@ st.set_page_config(
     initial_sidebar_state="collapsed" #stan sidebar - zwinięty
 )
 
+# tytuł strony i niebieski pasek po lewej stronie
+st.markdown(  
+    """
+    <style>
+    /* Wymuś tryb ciemny */
+    .stApp {
+        background-color: #0e1117 !important;
+        color: #fafafa !important;
+    }
+    
+    /* Niebieski pasek polewej stronie - zawsze widoczny */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100vh;
+        background-color: #1f77b4;
+        z-index: 9999;
+    }
+    /* Pasek na krawędzi sidebara (gdy sidebar jest otwarty) */
+    section[data-testid="stSidebar"] {
+        border-right: 8px solid #1976d2 !important;
+        box-sizing: border-box;
+        background-color: #262730 !important;
+    }
+    </style>
+
+   
+    
+    <h1 style="
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ffee00 50%, #32cd32 75%, #1e90ff 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        color: transparent !important;
+        font-size: 3em !important;
+        font-weight: bold !important;
+        text-align: center !important;
+        margin: 20px 0 !important;
+        display: inline-block !important;
+        width: 100% !important;
+    ">
+        PANJO - personalny asystent nauki języków obcych z AI
+    </h1>
+    """,  
+    unsafe_allow_html=True
+)
+
 # Zastosuj tło z obrazka i style czytelności
 apply_background_with_readability()
 

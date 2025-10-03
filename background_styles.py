@@ -113,12 +113,12 @@ def apply_background_with_readability():
         /* Tekst i markdown */
         div[data-testid="stText"],
         .stMarkdown {{
-            background-color: #559ef78c !important; /* Jasny kolor dla lepszej czytelności */
+            background-color: #55b9f701 !important; /* Jasny kolor dla lepszej czytelności */
             border-radius: 8px !important;
             padding: 10px !important;
             backdrop-filter: blur(3px) !important;
             margin: 8px 0 !important;
-            color: #2d1616ff !important; /* Ciemny tekst */
+            color: #ffffff !important; /* Ciemny tekst */
         }}
         
         /* Alerty i komunikaty */
@@ -236,7 +236,7 @@ def apply_background_with_readability():
         }}
         </style>
         """
-        st.title("PANJO - personalny asystent nauki języków obcych z AI")
+        #st.title("PANJO - personalny asystent nauki języków obcych z AI") # Przeniesiony tytuł tutaj, aby zastosować style
         st.markdown(background_css, unsafe_allow_html=True)
     else:
         st.warning(f"Nie znaleziono pliku tła: {background_path}")

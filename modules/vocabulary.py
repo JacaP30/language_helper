@@ -10,7 +10,7 @@ from utils.config import client, add_token_usage, text_to_speech, language_code_
 from ai_handlers import get_ai_handler
 
 # Plik z bazą słówek
-VOCABULARY_FILE = "vocabulary_database.json"
+VOCABULARY_FILE = "BASE/vocabulary_database.json"
 
 # Gotowe zestawy słówek dla różnych języków
 PREDEFINED_WORD_SETS = {
@@ -610,7 +610,10 @@ def show_vocabulary(language_in, language_out):
     with st.expander("ℹ️ Instrukcja obsługi modułu nauki słówek"):
         st.markdown("""
         ### 🎓 Jak korzystać z modułu nauki słówek:
-        
+        **🗣️ Wybierz język:**
+        - **Język źródłowy:** Język, którego się uczysz
+        - **Język docelowy:** Język, na który tłumaczysz (zazwyczaj polski)
+                    
         **📋 Zakładki:**
         - **🎓 Nauka słówek** - Uczenie się słówek z Twojej bazy z inteligentnym systemem powtórek
         - **🎯 Wybierz słówko** - Dodawanie słówek z gotowych zestawów tematycznych

@@ -1,0 +1,12 @@
+# Pliki i katalogi do pominięcia przez AI
+zapas/
+backup/
+archive/
+temp/
+*.backup
+*.old
+__pycache__/
+.git/
+.vscode/
+*.log
+# BASE/ - NIE IGNORUJEMY, AI może potrzebować analizować strukturę baz danych

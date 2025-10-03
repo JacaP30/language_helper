@@ -1,5 +1,4 @@
 .env
-.aiignore
 .vscode/
 __pycache__/
 *.pyc
@@ -9,4 +8,6 @@ __pycache__/
 *.sqlite3
 *.log
 
+# Katalogi do pominięcia  
 zapas/
+# BASE/ - NIE IGNORUJEMY, potrzebne przy deploymencie
