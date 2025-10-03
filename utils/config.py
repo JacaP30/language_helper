@@ -57,11 +57,17 @@ language_code_map = {
 # Dodatkowe importy dla funkcji audio
 import tempfile
 import time
-import sounddevice as sd
-import scipy.io.wavfile
 import json
 import os
 from datetime import datetime
+
+# Opcjonalne importy audio - mogą nie być dostępne w środowisku chmurowym
+try:
+    import sounddevice
+    import scipy.io.wavfile
+    AUDIO_AVAILABLE = True
+except ImportError:
+    AUDIO_AVAILABLE = False
 
 # Funkcje do persystentnej bazy danych kosztów
 DB_FILE = "BASE/usage_database.json"
@@ -733,6 +739,11 @@ def show_recording_interface(language_in, session_key_prefix=""):
     Returns:
         str or None: Rozpoznany tekst lub None jeśli nie ma nowego nagrania
     """
+    # Sprawdź czy audio jest dostępne
+    if not AUDIO_AVAILABLE:
+        st.warning("🎤 Nagrywanie niedostępne w środowisku chmurowym")
+        return ""
+    
     language_in_code = language_code_map.get(language_in, "en")
     
     # Klucze session_state z prefiksem
@@ -757,12 +768,17 @@ def show_recording_interface(language_in, session_key_prefix=""):
     if not st.session_state[is_recording_key]:
         # Przycisk START
         if st.button("🎤 Rozpocznij nagrywanie", key=f"{session_key_prefix}start_btn"):
+            if not AUDIO_AVAILABLE:
+                st.error("❌ Funkcja nagrywania niedostępna w tym środowisku")
+                return ""
+                
             st.session_state[is_recording_key] = True
             st.session_state[recording_start_time_key] = time.time()
             
             # Rozpocznij nagrywanie w tle
             fs = 16000
             max_seconds = 30
+            import sounddevice as sd
             st.session_state[recording_data_key] = sd.rec(int(max_seconds * fs), samplerate=fs, channels=1, dtype='int16')
             st.rerun()
     else:
@@ -774,7 +790,14 @@ def show_recording_interface(language_in, session_key_prefix=""):
         if st.button("⏹️ Zatrzymaj i przetwórz", key=f"{session_key_prefix}stop_btn"):
             st.session_state[is_recording_key] = False
             
+            if not AUDIO_AVAILABLE:
+                st.error("❌ Funkcja nagrywania niedostępna")
+                return ""
+            
             try:
+                import sounddevice as sd
+                import scipy.io.wavfile
+                
                 # Zatrzymaj nagrywanie
                 sd.stop()
                 
