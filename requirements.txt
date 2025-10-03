@@ -4,3 +4,8 @@ python-dotenv
 sounddevice
 scipy
 gtts
+sounddevice
+json
+datetime
+time
+tempfile

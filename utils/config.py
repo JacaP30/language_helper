@@ -66,7 +66,8 @@ try:
     import sounddevice
     import scipy.io.wavfile
     AUDIO_AVAILABLE = True
-except ImportError:
+except (ImportError, OSError):
+    # ImportError - brak modułu, OSError - brak PortAudio library
     AUDIO_AVAILABLE = False
 
 # Funkcje do persystentnej bazy danych kosztów
