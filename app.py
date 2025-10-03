@@ -4,8 +4,8 @@ PLLA - Personal Language Learning Assistant AI
 Aplikacja do nauki języków obcych z funkcjami tłumaczenia, sprawdzania gramatyki i dialogu z AI.
 """
 import streamlit as st
-from background_styles import apply_background_with_readability
 # Importy z utils 
+from utils.background_styles import apply_background_with_readability
 from utils.config import load_environment, client, supported_languages, language_code_map, show_token_sidebar, show_tts_sidebar
 # Importy modułów  
 from modules.translator import show_translator
@@ -73,7 +73,7 @@ st.markdown(
 # Zastosuj tło z obrazka i style czytelności
 apply_background_with_readability()
 
-#st.title("PANJO - personalny asystent nauki języków obcych z AI")
+#st.title("PANJO - personalny asystent nauki języków obcych z AI") # przeniesiony do background_styles.py
 
 with st.sidebar:
     tool_language = st.selectbox(
