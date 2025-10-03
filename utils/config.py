@@ -5,12 +5,20 @@ from dotenv import dotenv_values
 from openai import OpenAI
 
 def load_environment():
-    """Ładuje zmienne środowiskowe z pliku .env"""
-    env = dotenv_values(".env")
-    if not env.get("OPENAI_API_KEY"):
+    """Ładuje zmienne środowiskowe z pliku .env lub zmiennych systemowych"""
+    # Sprawdź zmienne systemowe (dla Streamlit Cloud)
+    import os
+    api_key = os.environ.get("OPENAI_API_KEY")
+    
+    # Jeśli nie ma w systemie, sprawdź plik .env
+    if not api_key:
+        env = dotenv_values(".env")
+        api_key = env.get("OPENAI_API_KEY")
+    
+    if not api_key:
         # Sprawdź czy klucz jest już w session_state
         if "openai_api_key" in st.session_state:
-            env["OPENAI_API_KEY"] = st.session_state.openai_api_key
+            api_key = st.session_state.openai_api_key
         else:
             st.error("❌ Brak klucza API OpenAI w pliku .env")
             api_key_input = st.text_input(
@@ -26,7 +34,8 @@ def load_environment():
                     st.error("❌ Nieprawidłowy klucz API (musi zaczynać się od 'sk-' i być wystarczająco długi)")
             if not api_key_input:
                 st.stop()
-    return env
+    
+    return {"OPENAI_API_KEY": api_key}
 
 # Inicjalizacja klienta OpenAI
 env = load_environment()
