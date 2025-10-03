@@ -10,7 +10,7 @@ def apply_background_with_readability():
     """Dodaje tło z obrazka i style dla lepszej czytelności"""
     
     # Wczytaj obrazek tła
-    background_path = r"background\tlolanguagehelper.png"
+    background_path = os.path.join("background", "tlolanguagehelper.png")
     
     if os.path.exists(background_path):
         with open(background_path, "rb") as image_file:
