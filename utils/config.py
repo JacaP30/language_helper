@@ -27,7 +27,7 @@ def load_environment():
                 placeholder="sk-proj-..."
             )
             if api_key_input:
-                if api_key_input.startswith("sk-") and len(api_key_input) == 164:
+                if api_key_input.startswith("sk-") and len(api_key_input) >= 100:
                     st.session_state.openai_api_key = api_key_input
                     st.rerun()
                 else:
