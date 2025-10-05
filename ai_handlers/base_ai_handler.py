@@ -10,7 +10,7 @@ except ImportError:
     st = None
 
 try:
-    from utils.config import client, add_token_usage
+    from utils.config import client, add_token_usage, get_model
 except ImportError:
     client = None
     add_token_usage = None
@@ -23,7 +23,10 @@ class BaseAIHandler:
     
     def __init__(self, language_name):
         self.language_name = language_name
-        self.model = "gpt-4o-mini"
+        try:
+            self.model = get_model()
+        except Exception:
+            self.model = "gpt-4o-mini"
         self.temperature = 0.3
         
     def _make_ai_request(self, system_prompt, user_prompt, max_tokens=800):

@@ -15,7 +15,7 @@ from modules.dialog import show_dialog
 
 st.set_page_config(
     layout="wide", #layout="wide" - szeroki, layout="centered" - wyśrodkowany, layout="wide" - szeroki, layout="fullscreen" - pełny ekran
-    page_title="PANJO", #tytuł strony
+    page_title="PANJOzAI", #tytuł strony
     page_icon="🗣️", #ikona strony - symbolizuje mówienie/języki
     #initial_sidebar_state="collapsed" #stan sidebar - zwinięty
 )
@@ -97,8 +97,8 @@ with st.sidebar:
         key="global_language_in",
         help="Język tekstu wejściowego/nagrań"
     )
-    
-    language_out = st.selectbox(
+     
+    language_out = st.selectbox( 
         "Język docelowy:", 
         supported_languages, 
         index=1, 

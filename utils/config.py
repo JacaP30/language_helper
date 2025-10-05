@@ -41,6 +41,15 @@ def load_environment():
 env = load_environment()
 client = OpenAI(api_key=env.get("OPENAI_API_KEY"))
 
+# Wybór modelu (globalnie dla całej aplikacji). Możesz ustawić zmienną środowiskową OPENAI_MODEL
+# np. OPENAI_MODEL=gpt-5-codex aby włączyć podglądowy model dla wszystkich wywołań.
+import os as _os
+DEFAULT_MODEL = _os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+
+def get_model():
+    """Zwraca aktywny model OpenAI używany w całej aplikacji."""
+    return DEFAULT_MODEL
+
 # Lista obsługiwanych języków
 supported_languages = ["angielski", "polski", "niemiecki", "francuski", "hiszpański", "włoski"]
 
@@ -63,8 +72,8 @@ from datetime import datetime
 
 # Opcjonalne importy audio - mogą nie być dostępne w środowisku chmurowym
 try:
-    import sounddevice
-    import scipy.io.wavfile
+    import sounddevice as sd
+    import scipy.io.wavfile as wavfile
     AUDIO_AVAILABLE = True
 except (ImportError, OSError):
     # ImportError - brak modułu, OSError - brak PortAudio library
@@ -708,52 +717,38 @@ def text_to_speech(text, language):
         return text_to_speech_openai(text, language)
 
 def transcribe_audio(audio_file, language_code="en"):
-    """
-    Transkrybuje plik audio używając OpenAI Whisper
-    
-    Args:
-        audio_file: Plik audio do transkrypcji
-        language_code (str): Kod języka (np. "en", "pl")
-    
-    Returns:
-        str: Transkrybowany tekst
-    """
+    """Transkrybuje plik audio używając OpenAI Whisper"""
     transcription = client.audio.transcriptions.create(
         model="whisper-1",
         file=audio_file,
         language=language_code
     )
-    
-    # Nie mamy dokładnego czasu nagrania tutaj, szacujemy na podstawie rozmiaru
-    # W show_recording_interface mamy dokładny czas
-    
     return transcription.text
 
 def show_recording_interface(language_in, session_key_prefix=""):
     """
-    Wyświetla interfejs nagrywania z przyciskami start/stop
+    Wyświetla interfejs nagrywania z przyciskami start/stop (sounddevice)
     
     Args:
         language_in (str): Język wejściowy (np. "English", "Polish")
         session_key_prefix (str): Prefiks dla kluczy session_state (aby uniknąć kolizji między modułami)
     
     Returns:
-        str or None: Rozpoznany tekst lub None jeśli nie ma nowego nagrania
+        str: Rozpoznany tekst lub pusty string jeśli brak nagrania
     """
-    # Sprawdź czy audio jest dostępne
     if not AUDIO_AVAILABLE:
-        st.warning("🎤 Nagrywanie niedostępne w środowisku chmurowym")
+        st.warning("🎤 Nagrywanie niedostępne w tym środowisku")
         return ""
-    
+
     language_in_code = language_code_map.get(language_in, "en")
-    
+
     # Klucze session_state z prefiksem
     is_recording_key = f"{session_key_prefix}is_recording"
     recording_data_key = f"{session_key_prefix}recording_data"
     recording_start_time_key = f"{session_key_prefix}recording_start_time"
     recognized_text_key = f"{session_key_prefix}recognized_text"
-    
-    # Inicjalizacja stanu nagrywania
+
+    # Inicjalizacja
     if is_recording_key not in st.session_state:
         st.session_state[is_recording_key] = False
     if recording_data_key not in st.session_state:
@@ -763,73 +758,42 @@ def show_recording_interface(language_in, session_key_prefix=""):
     if recognized_text_key not in st.session_state:
         st.session_state[recognized_text_key] = ""
 
-    recognized_text = None
-    
-    # Sekcja rozpoznawania mowy - start/stop
+    # UI
     if not st.session_state[is_recording_key]:
-        # Przycisk START
         if st.button("🎤 Rozpocznij nagrywanie", key=f"{session_key_prefix}start_btn"):
             if not AUDIO_AVAILABLE:
                 st.error("❌ Funkcja nagrywania niedostępna w tym środowisku")
                 return ""
-                
             st.session_state[is_recording_key] = True
             st.session_state[recording_start_time_key] = time.time()
-            
-            # Rozpocznij nagrywanie w tle
             fs = 16000
             max_seconds = 30
-            import sounddevice as sd
             st.session_state[recording_data_key] = sd.rec(int(max_seconds * fs), samplerate=fs, channels=1, dtype='int16')
             st.rerun()
     else:
-        # Status nagrywania z czasem
         elapsed = time.time() - st.session_state[recording_start_time_key]
         st.error(f"🔴 NAGRYWANIE TRWA... Czas: {elapsed:.1f}s")
-        
-        # Przycisk STOP
         if st.button("⏹️ Zatrzymaj i przetwórz", key=f"{session_key_prefix}stop_btn"):
             st.session_state[is_recording_key] = False
-            
-            if not AUDIO_AVAILABLE:
-                st.error("❌ Funkcja nagrywania niedostępna")
-                return ""
-            
             try:
-                import sounddevice as sd
-                import scipy.io.wavfile
-                
-                # Zatrzymaj nagrywanie
                 sd.stop()
-                
-                # Oblicz ile sekund nagrywano
                 duration = time.time() - st.session_state[recording_start_time_key]
                 duration = max(1.0, min(duration, 30.0))
-                
                 fs = 16000
-                # Przytnij nagranie do faktycznego czasu
                 samples = int(duration * fs)
                 recording = st.session_state[recording_data_key][:samples]
-                
                 st.success("⏹️ Zakończono nagrywanie. Przetwarzam...")
-                
                 with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmpfile:
-                    scipy.io.wavfile.write(tmpfile.name, fs, recording)
+                    wavfile.write(tmpfile.name, fs, recording)
                     tmpfile.flush()
                     with open(tmpfile.name, "rb") as file:
                         recognized_text = transcribe_audio(file, language_in_code)
-                    
-                    # Trackuj użycie Whisper
-                    add_whisper_usage(duration)
-                    
-                    # Zaktualizuj session state
-                    st.session_state[recognized_text_key] = recognized_text
-                    st.session_state[recording_data_key] = None  # Wyczyść dane nagrania
-                    st.rerun()
-                    
+                add_whisper_usage(duration)
+                st.session_state[recognized_text_key] = recognized_text
+                st.session_state[recording_data_key] = None
+                st.rerun()
             except Exception as e:
-                st.session_state[is_recording_key] = False
                 st.session_state[recording_data_key] = None
                 st.error(f"Błąd podczas nagrywania lub rozpoznawania mowy: {e}")
-    
+
     return st.session_state.get(recognized_text_key, "")

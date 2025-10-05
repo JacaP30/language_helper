@@ -2,7 +2,7 @@
 Moduł Dialog - prawdziwe rozmowy z AI z ciągłą historią
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage
+from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage, get_model
 
 
 def show_dialog(language_in, language_out):
@@ -111,7 +111,7 @@ def show_dialog(language_in, language_out):
                                     translation_prompt = f"Przetłumacz następujący tekst z języka {language_in} na język {language_out}. Zachowaj naturalny ton i znaczenie:\n\n{message['content']}"
                                     
                                     response = client.chat.completions.create(
-                                        model="gpt-4o-mini",
+                                        model=get_model(),
                                         messages=[
                                             {"role": "system", "content": f"Jesteś profesjonalnym tłumaczem. Tłumacz tekst z {language_in} na {language_out} zachowując naturalny ton i kontekst rozmowy."},
                                             {"role": "user", "content": translation_prompt}
@@ -190,7 +190,7 @@ ZASADY:
         try:
             with st.spinner("AI myśli..."):
                 response = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model=get_model(),
                     messages=[  # type: ignore
                         {"role": msg["role"], "content": msg["content"]} 
                         for msg in st.session_state.dialog_messages

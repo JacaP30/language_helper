@@ -1,6 +1,6 @@
 {
   "created_date": "2025-09-28T23:19:04.347569",
-  "last_updated": "2025-10-04T21:03:52.028499",
+  "last_updated": "2025-10-05T19:30:20.435039",
   "total_stats": {
     "translator": {
       "prompt": 537,
@@ -18,13 +18,13 @@
       "total": 247
     },
     "tts_chars_openai": 0,
-    "tts_chars_gtts": 777,
-    "whisper_minutes": 0.8012926419576009,
-    "total_cost_usd": 0.008105355851745606,
+    "tts_chars_gtts": 783,
+    "whisper_minutes": 1.4366625672022506,
+    "total_cost_usd": 0.012299475403213505,
     "vocabulary": {
-      "prompt": 6072,
-      "completion": 3507,
-      "total": 9579
+      "prompt": 7018,
+      "completion": 3907,
+      "total": 10925
     }
   },
   "daily_stats": {
@@ -162,6 +162,64 @@
       "sessions_started": 2,
       "first_activity": "2025-10-03T13:23:13.643989",
       "last_activity": "2025-10-03T14:30:36.384836"
+    },
+    "2025-10-04": {
+      "translator": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "belfer": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "dialog": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "vocabulary": {
+        "prompt": 946,
+        "completion": 400,
+        "total": 1346
+      },
+      "tts_chars_openai": 0,
+      "tts_chars_gtts": 6,
+      "whisper_minutes": 0.06959166666666666,
+      "cost_usd": 0.0,
+      "sessions_started": 3,
+      "first_activity": "2025-10-04T21:19:37.026104",
+      "last_activity": "2025-10-04T23:54:05.836337"
+    },
+    "2025-10-05": {
+      "translator": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "belfer": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "dialog": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "vocabulary": {
+        "prompt": 0,
+        "completion": 0,
+        "total": 0
+      },
+      "tts_chars_openai": 0,
+      "tts_chars_gtts": 0,
+      "whisper_minutes": 0.5657782585779824,
+      "cost_usd": 0.0,
+      "sessions_started": 4,
+      "first_activity": "2025-10-05T00:21:34.334887",
+      "last_activity": "2025-10-05T19:30:20.317721"
     }
   },
   "session_history": []

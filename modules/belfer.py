@@ -3,7 +3,7 @@ Moduł Belfer - urzytkownik wpisuje zdanie lub wyraz w wybranym języku in a ope
 Dla sprawdzenia wyświetla tłumaczenie w wybranym języku out
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage
+from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage, get_model
 
 
 def show_belfer(language_in, language_out):
@@ -64,7 +64,7 @@ def show_belfer(language_in, language_out):
             prompt = f"Sprawdź poprawność użytych wyrazów, budowę zdania i gramatykę w języku {language_in} następujący tekst:\n{verified_text}. Zaproponuj zmiany i poprawki wraz z wyjaśnieniami. Na koniec podaj tłumaczenie na {language_out} "
             try:
                 response = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model=get_model(),
                     messages=[
                         {"role": "system", "content": f"Jesteś nauczycielem języka w języku {language_in}. Jasno i zwięźle wyjaśniasz zagadnienia językowe związane z wpisanym tekstem i wyjaśniasz błędy. Jeśli tekst jest w innym języku niż {supported_languages}, odpowiedz 'Język podanego tekstu (tu podaj język jaki wykryłeś)nie jest obsługiwany.' "},
                         {"role": "user", "content": prompt}

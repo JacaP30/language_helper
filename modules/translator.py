@@ -2,7 +2,7 @@
 Moduł Translator - tłumaczenie tekstu z rozpoznawaniem mowy
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, text_to_speech, show_recording_interface, add_token_usage
+from utils.config import client, supported_languages, language_code_map, text_to_speech, show_recording_interface, add_token_usage, get_model
 
 
 def show_translator(language_in, language_out):
@@ -45,7 +45,7 @@ def show_translator(language_in, language_out):
             prompt = f"Przetłumacz na {language_out} następujący tekst:\n{st.session_state['translate_text_area']}"
             try:
                 response = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model=get_model(),
                     messages=[
                         {"role": "system", "content": f"Jesteś pomocnym tłumaczem. Tłumacz tekst z {language_in} na {language_out}. Jeśli tekst jest już w języku docelowym, napisz 'Tekst jest już w wybranym języku.'"},
                         {"role": "user", "content": prompt}

@@ -26,7 +26,7 @@ def apply_background_with_readability():
             background-attachment: fixed;
         }}
         
-        /* Główny kontener z kolorem #2349e1 
+        /* Główny kontener z kolorem #2349e1 */
         .main .block-container {{
             background-color: #2349e1 !important;
             border-radius: 15px !important;
