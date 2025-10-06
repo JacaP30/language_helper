@@ -6,7 +6,8 @@ import json
 import os
 import random
 from datetime import datetime, timedelta
-from utils.config import client, add_token_usage, text_to_speech, language_code_map
+from utils.config import client, text_to_speech, language_code_map
+from utils.ai_stats import add_token_usage
 from ai_handlers import get_ai_handler
 import os
 
@@ -820,7 +821,7 @@ def show_vocabulary(language_in, language_out):
             with col1:
                 add_mode = st.radio(
                     "Sposób dodawania:",
-                    ["🔥 Dodaj wszystkie słówka", "✋ Wybierz konkretne słówka"],
+                    ["✋ Wybierz konkretne słówka", "🔥 Dodaj wszystkie słówka"],
                     help="Wszystkie: dodaje cały zestaw\nWybrane: możesz zaznaczyć konkretne słówka"
                 )
             
@@ -943,15 +944,18 @@ def show_vocabulary(language_in, language_out):
                 if new_word:
                     try:
                         with st.spinner("Generuję tłumaczenie i przykłady..."):
+                            st.session_state.pop("vocabulary_last_tokens", None)
                             word_data = generate_word_with_ai(new_word, language_in, language_out)
-                            
+                            # Pobierz liczbę tokenów z session_state ustawionego przez handler
+                            if hasattr(st, "session_state") and "last_vocabulary_tokens" in st.session_state:
+                                st.session_state["vocabulary_last_tokens"] = st.session_state["last_vocabulary_tokens"]
+                                st.session_state.pop("last_vocabulary_tokens")
                             if word_data:
                                 st.session_state.generated_word = word_data
                                 st.session_state.generated_word["original"] = new_word
                                 st.success(f"✅ Pomyślnie wygenerowano dane dla słówka '{new_word}'")
                             else:
                                 st.error(f"❌ Nie udało się wygenerować danych dla słówka '{new_word}'")
-                                
                     except Exception as e:
                         st.error(f"❌ Wystąpił błąd podczas generowania: {str(e)}")
                         with st.expander("🔍 Szczegóły błędu"):
@@ -960,21 +964,17 @@ def show_vocabulary(language_in, language_out):
         # Wyświetl wygenerowane dane
         if "generated_word" in st.session_state:
             word_data = st.session_state.generated_word
-            
             st.success("✅ Wygenerowano dane słówka:")
-            
+            if "vocabulary_last_tokens" in st.session_state:
+                st.caption(st.session_state["vocabulary_last_tokens"])
             col1, col2 = st.columns(2)
-            
             with col1:
                 st.write(f"**{language_in}:** {word_data['original']}")
                 st.write(f"**{language_out}:** {word_data['translation']}")
-                
                 if word_data.get("alternatives"):
                     st.write(f"**Alternatywy:** {', '.join(word_data['alternatives'])}")
-                
                 st.write(f"**Część mowy:** {word_data.get('part_of_speech', 'nieznana')}")
                 st.write(f"**Poziom:** {word_data.get('difficulty', 'nieznany')}")
-            
             with col2:
                 if st.button("🔊 Wymów oryginał"):
                     try:
@@ -982,15 +982,12 @@ def show_vocabulary(language_in, language_out):
                         st.audio(audio_bytes, format="audio/mp3")
                     except Exception as e:
                         st.error(f"❌ Błąd wymowy: {str(e)}")
-                
                 if st.button("🔊 Wymów tłumaczenie"):
                     try:
                         audio_bytes = text_to_speech(word_data["translation"], language_out)
                         st.audio(audio_bytes, format="audio/mp3")
                     except Exception as e:
                         st.error(f"❌ Błąd wymowy: {str(e)}")
-            
-            # Przykłady
             if word_data.get("examples"):
                 st.write("**Przykłady użycia:**")
                 for i, example in enumerate(word_data["examples"]):

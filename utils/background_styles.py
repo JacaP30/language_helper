@@ -57,16 +57,16 @@ def apply_background_with_readability():
         .stMultiSelect > div > div,
         .stNumberInput > div > div > input {{
             background-color: #95b7f6ff !important; /* Jasnoniebieski kolor */
-            border: 1px solid #000000 !important; /* Cień obramowania */
+            border: 1px solid #00000050 !important; /* Cień obramowania */
             border-radius: 8px !important;
             backdrop-filter: blur(5px) !important;
             color: #000000ff !important; /* Ciemny tekst */
         }}
         
-        /* Przyciski */
+                /* Przyciski */
         .stButton > button {{
             background-color: #c9d9f8ff !important; /* Bardzo jasnoniebieski kolor */
-            border: 2px solid #000000 !important; /* Cień obramowania */
+            border: 2px solid #00000050 !important; /* Cień obramowania */
             border-radius: 10px !important;
             backdrop-filter: blur(5px) !important;
             font-weight: 600 !important;
@@ -78,6 +78,42 @@ def apply_background_with_readability():
             background-color: rgba(240, 240, 240, 0.95) !important; /* Jaśniejszy przy najechaniu */
             transform: translateY(-2px) !important;
         }}
+
+        /* Przycisk nagrywania (st.audio_input)tło pod przyciskiem */
+        div[data-testid="stAudioInput"] {{
+            background-color: #2969ffd0 !important; /* Niebieski półprzezroczysty */
+            border-radius: 12px !important;
+            box-shadow: 0 2px 8px #d8f255ff !important;
+        }}
+        
+        /* Przycisk nagrywania (st.audio_input) */
+        div[data-testid="stAudioInput"] button {{
+            background-color: #c9d9f8ff !important; /* Spójny kolor jak dla .stButton */
+            border: 2px solid #00000050 !important; /* Cień obramowania */
+            border-radius: 10px !important;/* Zaokrąglone rogi */
+            backdrop-filter: blur(5px) !important; /* Półprzezroczyste tło */
+            font-weight: 600 !important; /* Pogrubiona czcionka */
+            color: #c90f0fff !important; /* Ciemny tekst */
+            padding: 0.5em 1.5em !important; /* Większy padding dla lepszego wyglądu */
+            margin: 1rem 0 !important; /* Odstęp nad i pod przyciskiem */
+            box-shadow: 0 4px 8px #d8f255ff !important;
+        }}
+        
+        div[data-testid="stAudioInput"] button:hover {{
+            background-color: rgba(240, 240, 240, 0.95) !important;
+            transform: translateY(-2px) !important;
+        }}
+
+        /* Ujednolicenie etykiety i odstępów audio_input */
+        div[data-testid="stAudioInput"] label {{
+            color: #6e0000ff !important;
+            font-weight: 600 !important;
+            padding-left: 1.5rem !important;
+        }}
+        div[data-testid="stAudioInput"] {{
+            padding: 0.25rem 0 !important;
+        }}
+        
         
         /* Nagłówki 2, 3, 4, 5, 6 */
         h2, h3, h4, h5, h6 {{

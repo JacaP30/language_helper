@@ -2,7 +2,9 @@
 Moduł Dialog - prawdziwe rozmowy z AI z ciągłą historią
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage, get_model
+from utils.config import client, supported_languages, language_code_map, text_to_speech, get_model
+from utils.ai_stats import add_token_usage
+from utils.cloud_audio_recorder import cloud_audio_recorder_interface, transcribe_audio_file
 
 
 def show_dialog(language_in, language_out):
@@ -60,7 +62,7 @@ def show_dialog(language_in, language_out):
         )
     
     with col2:
-        if st.button("🔄 Nowa rozmowa", help="Czyści historię i zaczyna od nowa"):
+        if  st.button("🔄 Nowa rozmowa", help="Czyści historię i zaczyna od nowa"):
             st.session_state.pop("dialog_messages", None)
             st.session_state.pop("dialog_context_set", None)
             st.rerun()
@@ -109,7 +111,6 @@ def show_dialog(language_in, language_out):
                             try:
                                 with st.spinner("Tłumaczę..."):
                                     translation_prompt = f"Przetłumacz następujący tekst z języka {language_in} na język {language_out}. Zachowaj naturalny ton i znaczenie:\n\n{message['content']}"
-                                    
                                     response = client.chat.completions.create(
                                         model=get_model(),
                                         messages=[
@@ -119,18 +120,15 @@ def show_dialog(language_in, language_out):
                                         max_tokens=300,
                                         temperature=0.3,
                                     )
-                                    
                                     # Trackuj użycie tokenów dla tłumaczenia
                                     if response.usage:
                                         add_token_usage("dialog", response.usage.prompt_tokens, response.usage.completion_tokens)
-                                    
+                                        st.session_state["dialog_last_tokens"] = f"📊 Użyto {response.usage.prompt_tokens} + {response.usage.completion_tokens} = {response.usage.total_tokens} tokenów"
                                     translation = response.choices[0].message.content
                                     translation = translation.strip() if translation else "Błąd tłumaczenia"
-                                    
                                     # Zapisz tłumaczenie w session_state
                                     st.session_state[f"translation_{i}"] = translation
                                     st.rerun()
-                                    
                             except Exception as e:
                                 st.error(f"Błąd tłumaczenia: {e}")
 
@@ -139,15 +137,23 @@ def show_dialog(language_in, language_out):
     # Sekcja wprowadzania nowej wiadomości
     # st.subheader("✍️ Napisz wiadomość:")
     
-    # Interfejs nagrywania
-    recognized_text = show_recording_interface(language_in, "dialog_")
+    # Nowy interfejs nagrywania kompatybilny z chmurą
+    # st.subheader("🎤 Nagrywanie głosu")
+    # st.text(f"Nagraj w języku {language_in} lub {language_out}:")
+    audio_file_path = cloud_audio_recorder_interface("dialog_")
+    
+    recognized_text = ""
+    if audio_file_path:
+        language_in_code = language_code_map.get(language_in, "en")
+        with st.spinner("🔄 Rozpoznawanie mowy..."):
+            recognized_text = transcribe_audio_file(audio_file_path, language_in_code)
     
     # Input dla nowej wiadomości
     col1, col2 = st.columns([4, 1])
     
     with col1:
         user_message = st.text_area(
-            f"Napisz w języku {language_in} lub {language_out}:",
+            f"Napisz lub nagraj w języku {language_in} lub {language_out}:",
             value=recognized_text,
             key="dialog_input_area",
             height=100,
@@ -198,22 +204,18 @@ ZASADY:
                     max_tokens=300,
                     temperature=0.8,
                 )
-                
                 # Trackuj użycie tokenów
                 if response.usage:
                     add_token_usage("dialog", response.usage.prompt_tokens, response.usage.completion_tokens)
-                
+                    st.session_state["dialog_last_tokens"] = f"📊 Użyto {response.usage.prompt_tokens} + {response.usage.completion_tokens} = {response.usage.total_tokens} tokenów"
                 ai_response = response.choices[0].message.content
                 ai_response = ai_response.strip() if ai_response else "Przepraszam, nie mogę odpowiedzieć."
-                
                 # Dodaj odpowiedź AI do historii
                 st.session_state.dialog_messages.append({
                     "role": "assistant", 
                     "content": ai_response
                 })
-                
                 st.rerun()  # Odśwież interfejs
-                
         except Exception as e:
             st.error(f"Błąd podczas generowania odpowiedzi: {e}")
     
@@ -222,6 +224,10 @@ ZASADY:
 
 
         
+    # Wyświetl ostatnie użycie tokenów (jeśli jest)
+    if "dialog_last_tokens" in st.session_state:
+        st.caption(st.session_state["dialog_last_tokens"])
+
     # Statystyki rozmowy
     if st.session_state.dialog_messages:
         user_messages = len([m for m in st.session_state.dialog_messages if m["role"] == "user"])

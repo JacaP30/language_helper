@@ -3,7 +3,9 @@ Moduł Belfer - urzytkownik wpisuje zdanie lub wyraz w wybranym języku in a ope
 Dla sprawdzenia wyświetla tłumaczenie w wybranym języku out
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, show_recording_interface, text_to_speech, add_token_usage, get_model
+from utils.config import client, supported_languages, language_code_map, text_to_speech, get_model
+from utils.ai_stats import add_token_usage
+from utils.cloud_audio_recorder import cloud_audio_recorder_interface, transcribe_audio_file
 
 
 def show_belfer(language_in, language_out):
@@ -48,8 +50,15 @@ def show_belfer(language_in, language_out):
         """)
 
     # Używamy globalnych ustawień języków z sidebar
-    # Interfejs nagrywania - używamy wspólnej funkcji
-    recognized_text = show_recording_interface(language_in, "belfer_")
+    # Nowy interfejs nagrywania kompatybilny z chmurą
+    # st.subheader("🎤 Nagrywanie głosu")
+    audio_file_path = cloud_audio_recorder_interface("belfer_")
+    
+    recognized_text = ""
+    if audio_file_path:
+        language_in_code = language_code_map.get(language_in, "en")
+        with st.spinner("🔄 Rozpoznawanie mowy..."):
+            recognized_text = transcribe_audio_file(audio_file_path, language_in_code)
     
     # Pole tekstowe do wpisania wiadomości
     verified_text = st.text_area(f"Wpisz tekst do weryfikacji lub nagraj w języku - {language_in}", 
@@ -89,12 +98,12 @@ def show_belfer(language_in, language_out):
                 st.error(f"Wystąpił błąd podczas tłumaczenia: {e}")
     
     # Przycisk odtwarzania wyjaśnienia
-    if st.button("🔊 Odtwórz wyjaśnienie"):
-        if st.session_state.get("belfer_last_verification"):
-            try:
-                audio_bytes = text_to_speech(st.session_state["belfer_last_verification"], language_out)
-                st.audio(audio_bytes, format="audio/mp3")
-            except Exception as e:
-                st.error(f"Błąd podczas generowania mowy: {e}")
-        else:
-            st.warning("Brak wyjaśnienia do odtworzenia. Najpierw zweryfikuj tekst.")
+    # if st.button("🔊 Odtwórz wyjaśnienie"):
+    #     if st.session_state.get("belfer_last_verification"):
+    #         try:
+    #             audio_bytes = text_to_speech(st.session_state["belfer_last_verification"], language_out)
+    #             st.audio(audio_bytes, format="audio/mp3")
+    #         except Exception as e:
+    #             st.error(f"Błąd podczas generowania mowy: {e}")
+    #     else:
+    #         st.warning("Brak wyjaśnienia do odtworzenia. Najpierw zweryfikuj tekst.")

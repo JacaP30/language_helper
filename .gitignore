@@ -1,6 +1,10 @@
 .env
 .vscode/
+.idea/
 __pycache__/
+ai_handlers/__pycache__/
+modules/__pycache__/
+utils/__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -8,6 +12,41 @@ __pycache__/
 *.sqlite3
 *.log
 
-# Katalogi do pominięcia  
+# Pliki tymczasowe i backupy
+*.bak
+*.tmp
+*~
+
+# Notatniki Jupyter
+*.ipynb
+
+# Pliki testowe, robocze, backupy, notatki, obrazy robocze
 zapas/
+AI_CODING_RULES.md
+ai_refactoring_summary.md
+cache_refresh_fix.md
+*.excalidraw
+*.html
+*.txt
+
+# Pliki graficzne (jeśli nie są wymagane w produkcji, usuń jeśli potrzebujesz tła)
+background/*.png
+
+# Pliki audio (jeśli generowane tymczasowo)
+*.wav
+*.mp3
+*.ogg
+
+# Bazy testowe i logi
+*.db
+*.sqlite3
+*.log
+
+# Pliki i katalogi narzędzi AI/DevContainer
+.continue/
+.devcontainer/
+
+# Pliki konfiguracyjne Streamlit (zostaw .streamlit/config.toml jeśli chcesz customizować)
+# .streamlit/
+
 # BASE/ - NIE IGNORUJEMY, potrzebne przy deploymencie

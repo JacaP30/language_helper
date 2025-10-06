@@ -6,21 +6,23 @@ Aplikacja do nauki języków obcych z funkcjami tłumaczenia, sprawdzania gramat
 import streamlit as st
 # Importy z utils 
 from utils.background_styles import apply_background_with_readability
-from utils.config import load_environment, client, supported_languages, language_code_map, show_token_sidebar, show_tts_sidebar
+from utils.config import load_environment, client, supported_languages, language_code_map, show_token_sidebar
+from utils.ai_stats import calculate_costs, load_usage_database
+from utils.tts_sidebar import show_tts_sidebar
 # Importy modułów  
 from modules.translator import show_translator
 from modules.belfer import show_belfer
 from modules.dialog import show_dialog 
 
-
+ 
 st.set_page_config(
     layout="wide", #layout="wide" - szeroki, layout="centered" - wyśrodkowany, layout="wide" - szeroki, layout="fullscreen" - pełny ekran
     page_title="PANJOzAI", #tytuł strony
     page_icon="🗣️", #ikona strony - symbolizuje mówienie/języki
     #initial_sidebar_state="collapsed" #stan sidebar - zwinięty
 )
-
-# tytuł strony i niebieski pasek po lewej stronie
+ 
+# tytuł strony i niebieski pasek po lewej stronie 
 st.markdown(  
     """
     <style>
@@ -29,7 +31,7 @@ st.markdown(
         background-color: #0e1117 !important;
         color: #fafafa !important;
     }
-    
+      
     /* Niebieski pasek polewej stronie - zawsze widoczny */
     body::after {
         content: '';
@@ -52,7 +54,7 @@ st.markdown(
    
     
     <h1 style="
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #ffee00 50%, #32cd32 75%, #1e90ff 100%) !important;
+        background: linear-gradient(160deg, #ff6b35 0%, #f7931e 25%, #ffee00 50%, #32cd32 75%, #1e90ff 100%) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         background-clip: text !important;
@@ -85,7 +87,7 @@ with st.sidebar:
             "Translator" # tłumacz ZROBIONE
         ], key="tool_language"
     )
-    
+     
     #st.divider()
     st.subheader("🌍 Ustawienia języków")
     
@@ -108,7 +110,6 @@ with st.sidebar:
     
     # Wyświetl wybór TTS
     show_tts_sidebar()
-    
     # Wyświetl statystyki tokenów i kosztów
     show_token_sidebar()
 

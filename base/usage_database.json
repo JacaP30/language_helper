@@ -1,225 +1,61 @@
 {
-  "created_date": "2025-09-28T23:19:04.347569",
-  "last_updated": "2025-10-05T19:30:20.435039",
+  "created_date": "2025-10-06T13:15:30.383005",
+  "last_updated": "2025-10-06T16:29:29.835911",
   "total_stats": {
     "translator": {
-      "prompt": 537,
-      "completion": 86,
-      "total": 623
+      "prompt": 236,
+      "completion": 3,
+      "total": 239
     },
     "belfer": {
-      "prompt": 206,
-      "completion": 124,
-      "total": 330
+      "prompt": 412,
+      "completion": 299,
+      "total": 711
     },
     "dialog": {
-      "prompt": 229,
-      "completion": 18,
-      "total": 247
+      "prompt": 2505,
+      "completion": 317,
+      "total": 2822
     },
-    "tts_chars_openai": 0,
-    "tts_chars_gtts": 783,
-    "whisper_minutes": 1.4366625672022506,
-    "total_cost_usd": 0.012299475403213505,
     "vocabulary": {
-      "prompt": 7018,
-      "completion": 3907,
-      "total": 10925
-    }
+      "prompt": 2268,
+      "completion": 1224,
+      "total": 3492
+    },
+    "tts_chars_openai": 97,
+    "tts_chars_gtts": 733,
+    "whisper_minutes": 2.9222979166666665,
+    "total_cost_usd": 0.0209077375
   },
   "daily_stats": {
-    "2025-09-28": {
+    "2025-10-06": {
       "translator": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
+        "prompt": 236,
+        "completion": 3,
+        "total": 239
       },
       "belfer": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
+        "prompt": 412,
+        "completion": 299,
+        "total": 711
       },
       "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 0,
-      "whisper_minutes": 0.0,
-      "cost_usd": 0.0,
-      "sessions_started": 0,
-      "first_activity": "2025-09-28T23:46:23.568873",
-      "last_activity": "2025-09-28T23:46:23.568873"
-    },
-    "2025-09-29": {
-      "translator": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "belfer": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 0,
-      "whisper_minutes": 0.0,
-      "cost_usd": 0.0,
-      "sessions_started": 7,
-      "first_activity": "2025-09-29T00:14:45.477292",
-      "last_activity": "2025-09-29T00:57:25.447617"
-    },
-    "2025-10-01": {
-      "translator": {
-        "prompt": 93,
-        "completion": 14,
-        "total": 107
-      },
-      "belfer": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
+        "prompt": 2505,
+        "completion": 317,
+        "total": 2822
       },
       "vocabulary": {
-        "prompt": 10,
-        "completion": 5,
-        "total": 15
+        "prompt": 2268,
+        "completion": 1224,
+        "total": 3492
       },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 48,
-      "whisper_minutes": 0.1076137900352478,
-      "cost_usd": 0.0,
-      "sessions_started": 12,
-      "first_activity": "2025-10-01T11:29:44.969769",
-      "last_activity": "2025-10-01T17:06:10.165724"
-    },
-    "2025-10-02": {
-      "translator": {
-        "prompt": 340,
-        "completion": 49,
-        "total": 389
-      },
-      "belfer": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "vocabulary": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 156,
-      "whisper_minutes": 0.26462159554163617,
+      "tts_chars_openai": 97,
+      "tts_chars_gtts": 733,
+      "whisper_minutes": 2.9222979166666665,
       "cost_usd": 0.0,
       "sessions_started": 2,
-      "first_activity": "2025-10-02T00:09:53.704702",
-      "last_activity": "2025-10-02T15:23:18.565815"
-    },
-    "2025-10-03": {
-      "translator": {
-        "prompt": 104,
-        "completion": 23,
-        "total": 127
-      },
-      "belfer": {
-        "prompt": 206,
-        "completion": 124,
-        "total": 330
-      },
-      "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "vocabulary": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 460,
-      "whisper_minutes": 0.3572507460912069,
-      "cost_usd": 0.0,
-      "sessions_started": 2,
-      "first_activity": "2025-10-03T13:23:13.643989",
-      "last_activity": "2025-10-03T14:30:36.384836"
-    },
-    "2025-10-04": {
-      "translator": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "belfer": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "vocabulary": {
-        "prompt": 946,
-        "completion": 400,
-        "total": 1346
-      },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 6,
-      "whisper_minutes": 0.06959166666666666,
-      "cost_usd": 0.0,
-      "sessions_started": 3,
-      "first_activity": "2025-10-04T21:19:37.026104",
-      "last_activity": "2025-10-04T23:54:05.836337"
-    },
-    "2025-10-05": {
-      "translator": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "belfer": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "dialog": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "vocabulary": {
-        "prompt": 0,
-        "completion": 0,
-        "total": 0
-      },
-      "tts_chars_openai": 0,
-      "tts_chars_gtts": 0,
-      "whisper_minutes": 0.5657782585779824,
-      "cost_usd": 0.0,
-      "sessions_started": 4,
-      "first_activity": "2025-10-05T00:21:34.334887",
-      "last_activity": "2025-10-05T19:30:20.317721"
+      "first_activity": "2025-10-06T13:22:07.104061",
+      "last_activity": "2025-10-06T15:51:30.742818"
     }
   },
   "session_history": []

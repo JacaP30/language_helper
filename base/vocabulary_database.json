@@ -1,6 +1,6 @@
 {
   "created_date": "2025-09-29T00:57:25.457569",
-  "last_updated": "2025-10-03T13:24:19.016912",
+  "last_updated": "2025-10-06T15:51:04.934242",
   "words": {
     "angielski_polski": [
       {
@@ -25,11 +25,11 @@
         "original": "be",
         "id": 1,
         "added_date": "2025-09-29T00:57:25.457580",
-        "review_count": 1,
-        "correct_count": 1,
-        "last_reviewed": "2025-10-01T11:36:34.601238",
-        "next_review": "2025-10-03T11:36:34.601251",
-        "mastery_level": 1
+        "review_count": 2,
+        "correct_count": 2,
+        "last_reviewed": "2025-10-06T15:51:04.934210",
+        "next_review": "2025-10-11T15:51:04.934232",
+        "mastery_level": 2
       },
       {
         "translation": "mieć",
@@ -81,11 +81,11 @@
         "original": "person",
         "id": 3,
         "added_date": "2025-10-01T15:46:37.418575",
-        "review_count": 0,
-        "correct_count": 0,
-        "last_reviewed": null,
-        "next_review": "2025-10-01T15:46:37.418583",
-        "mastery_level": 0
+        "review_count": 1,
+        "correct_count": 1,
+        "last_reviewed": "2025-10-06T13:35:24.829840",
+        "next_review": "2025-10-08T13:35:24.829852",
+        "mastery_level": 1
       }
     ],
     "polski_angielski": [],

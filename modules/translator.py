@@ -2,7 +2,9 @@
 Moduł Translator - tłumaczenie tekstu z rozpoznawaniem mowy
 """
 import streamlit as st
-from utils.config import client, supported_languages, language_code_map, text_to_speech, show_recording_interface, add_token_usage, get_model
+from utils.config import client, supported_languages, language_code_map, text_to_speech, get_model
+from utils.ai_stats import add_token_usage
+from utils.cloud_audio_recorder import cloud_audio_recorder_interface, transcribe_audio_file
 
 
 def show_translator(language_in, language_out):
@@ -13,8 +15,14 @@ def show_translator(language_in, language_out):
     # ustawienie języka kodu dla rozpoznawania mowy
     language_in_code = language_code_map.get(language_in, "en")
 
-    # Interfejs nagrywania - używamy wspólnej funkcji
-    recognized_text = show_recording_interface(language_in, "translator_")
+    # Nowy interfejs nagrywania kompatybilny z chmurą
+    st.subheader("🎤 Nagrywanie głosu")
+    audio_file_path = cloud_audio_recorder_interface("translator_")
+    
+    recognized_text = ""
+    if audio_file_path:
+        with st.spinner("🔄 Rozpoznawanie mowy..."):
+            recognized_text = transcribe_audio_file(audio_file_path, language_in_code)
     
     # Pole tekstowe do wpisania wiadomości
     translate_text = st.text_area(
@@ -23,6 +31,7 @@ def show_translator(language_in, language_out):
         key="translate_text_area"
     )
 
+    # ... reszta kodu bez zmian ...
     # Używamy globalnych ustawień języków z sidebar
     language_out_code = language_code_map.get(language_out, "pl")
 

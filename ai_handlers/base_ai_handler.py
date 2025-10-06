@@ -10,7 +10,8 @@ except ImportError:
     st = None
 
 try:
-    from utils.config import client, add_token_usage, get_model
+    from utils.config import client, get_model
+    from utils.ai_stats import add_token_usage
 except ImportError:
     client = None
     add_token_usage = None
