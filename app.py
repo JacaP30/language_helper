@@ -78,6 +78,7 @@ apply_background_with_readability()
 #st.title("PANJO - personalny asystent nauki języków obcych z AI") # przeniesiony do background_styles.py
 
 with st.sidebar:
+    st.image("background/logo.png", use_container_width=True)
     tool_language = st.selectbox(
         "Wybierz narzędzie",
         [                    
