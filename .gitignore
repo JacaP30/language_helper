@@ -30,7 +30,7 @@ cache_refresh_fix.md
 *.txt
 
 # Pliki graficzne (jeśli nie są wymagane w produkcji, usuń jeśli potrzebujesz tła)
-background/*.png
+
 
 # Pliki audio (jeśli generowane tymczasowo)
 *.wav
